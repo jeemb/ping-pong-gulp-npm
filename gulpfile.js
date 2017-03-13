@@ -6,6 +6,7 @@ var concat = require('gulp-concat');
 var del = require('del');
 var uglify = require('gulp-uglify');
 var buildProduction = utilities.env.production;
+var jshint = require('gulp-jshint');
 
 gulp.task('jsBrowserify', ['concatInterface'], function() {
   return browserify({ entries: ['./tmp/allConcat.js'] })
@@ -36,4 +37,10 @@ gulp.task("build", ['clean'], function(){
 
 gulp.task("clean", function(){
   return del(['build', 'tmp']);
+});
+
+gulp.task('jshint', function(){
+  return gulp.src(['js/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
